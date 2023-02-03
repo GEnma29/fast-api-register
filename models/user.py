@@ -1,6 +1,7 @@
-from pydantic import BaseModel, Field, EmailStr
-from bson import ObjectId
 from typing import List, Optional
+from bson import ObjectId
+from pydantic import BaseModel, Field, EmailStr, root_validator
+from datetime import datetime
 
 
 class PyObjectId(ObjectId):
@@ -27,6 +28,8 @@ class UserModel(BaseModel):
     age: int = Field(...)
     email: EmailStr = Field(...)
     kyc: bool = Field(...)
+    created_at: datetime = datetime.utcnow().isoformat()
+    updated_at: datetime = datetime.utcnow().isoformat()
 
     class Config:
         allow_population_by_field_name = True
@@ -51,8 +54,10 @@ class UpdateUserModel(BaseModel):
     age: Optional[int]
     email: Optional[EmailStr]
     kyc: Optional[bool]
+    updated_at: datetime = datetime.utcnow().isoformat()
 
     class Config:
+        validate_assignment = True
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
         schema_extra = {
@@ -65,3 +70,8 @@ class UpdateUserModel(BaseModel):
                 "kyc": False,
             }
         }
+
+    @root_validator
+    def number_validator(cls, values):
+        values["updated_at"] = datetime.utcnow().isoformat()
+        return values

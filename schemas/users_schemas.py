@@ -6,7 +6,9 @@ def user_serializer(user) -> dict:
         "gender": user["gender"],
         "age": user["age"],
         "email": user["email"],
-        "kyc": user['kyc']
+        "kyc": user['kyc'],
+        "created_at": user["created_at"],
+        "updated_at": user["updated_at"]
     }
 
 
