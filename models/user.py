@@ -23,7 +23,9 @@ class PyObjectId(ObjectId):
 class UserModel(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     name: str = Field(...)
-    lastName: str = Field(...)
+    last_name: str = Field(...)
+    document_type: str = Field(...)
+    document_number: str = Field(...)
     gender: str = Field(...)
     age: int = Field(...)
     email: EmailStr = Field(...)
@@ -38,7 +40,8 @@ class UserModel(BaseModel):
         schema_extra = {
             "example": {
                 "name": "Jane",
-                "lastName": "Doe",
+                "last_name": "Doe",
+                "document"
                 "gender": "Male",
                 "age": "25",
                 "email": "jdoe@example.com",
@@ -49,7 +52,9 @@ class UserModel(BaseModel):
 
 class UpdateUserModel(BaseModel):
     name: Optional[str]
-    lastName: Optional[str]
+    last_name: Optional[str]
+    document_type: Optional[str]
+    document_number: Optional[str]
     gender: Optional[str]
     age: Optional[int]
     email: Optional[EmailStr]

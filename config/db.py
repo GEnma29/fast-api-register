@@ -2,6 +2,7 @@ from pymongo import MongoClient
 from typing import TypedDict
 from config.env import settings
 from pymongo.database import Database
+from pymongo.collection import Collection
 from models.user import UserModel
 
 client: MongoClient = MongoClient(
@@ -9,4 +10,4 @@ client: MongoClient = MongoClient(
 
 db: Database = client.todo_pago
 
-collection_name = db[settings.MONGO_COLLETION_USER]
+collection_name: Collection = db[settings.MONGO_COLLETION_USER]
