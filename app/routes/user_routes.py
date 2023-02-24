@@ -3,17 +3,12 @@ from fastapi.responses import Response, JSONResponse
 from fastapi.encoders import jsonable_encoder
 from app.config.db import collection_name
 from typing import List
-from passlib.context import CryptContext
 from app.models.user import UserModel, UpdateUserModel
 from app.schemas.users_schemas import user_serializer, users_serializer
+from app.utilities.encrypt import get_password_hash
+
 
 user_register_api_router = APIRouter()
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-
-def get_password_hash(password):
-    return pwd_context.hash(password)
 
 
 @user_register_api_router.get("/users",  response_description="Get all  users", response_model=List[UserModel])
