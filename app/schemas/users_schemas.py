@@ -6,6 +6,7 @@ def user_serializer(user) -> dict:
         "document_type": user["document_type"],
         "document_number": user["document_number"],
         "gender": user["gender"],
+        "hashed_password": user["hashed_password"],
         "age": user["age"],
         "email": user["email"],
         "kyc": user['kyc'],

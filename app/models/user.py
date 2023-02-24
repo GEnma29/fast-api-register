@@ -1,7 +1,15 @@
 from typing import List, Optional
 from bson import ObjectId
+from passlib.context import CryptContext
 from pydantic import BaseModel, Field, EmailStr, root_validator
 from datetime import datetime
+
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+
+def get_password_hash(password):
+    return pwd_context.hash(password)
 
 
 class PyObjectId(ObjectId):
@@ -27,6 +35,7 @@ class UserModel(BaseModel):
     document_type: str = Field(...)
     document_number: str = Field(...)
     gender: str = Field(...)
+    hashed_password: str = Field(...)
     age: int = Field(...)
     email: EmailStr = Field(...)
     kyc: bool = Field(...)
@@ -59,7 +68,6 @@ class UpdateUserModel(BaseModel):
     age: Optional[int]
     email: Optional[EmailStr]
     kyc: Optional[bool]
-    updated_at: datetime = datetime.utcnow().isoformat()
 
     class Config:
         validate_assignment = True

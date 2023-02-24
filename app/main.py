@@ -1,4 +1,4 @@
-from routes.user_routes import user_register_api_router
+from app.routes.user_routes import user_register_api_router
 from fastapi import FastAPI
 
 
@@ -9,4 +9,4 @@ app.include_router(user_register_api_router)
 
 @app.get("/")
 async def root():
-    return {"status": "hola"}
+    return {"status": "welcome to first fast api login"}
